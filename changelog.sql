@@ -1,4 +1,4 @@
---liquibase formatted sql
+-- liquibase formatted sql changeLogId:ef0c1e71-ea2c-4d37-962d-6c2d3b0795d5
 
 --changeset SteveZ:45555-createtablecontacts
 CREATE TABLE contacts (
