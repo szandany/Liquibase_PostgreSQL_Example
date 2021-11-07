@@ -16,8 +16,14 @@ jobs:
       - image: postgres:latest
         environment:
           POSTGRES_DB: test
-          POSTGRES_USER: $LIQUIBASE_COMMAND_USERNAME
-          POSTGRES_PASSWORD: $LIQUIBASE_COMMAND_PASSWORD
+          POSTGRES_USER: root
+          POSTGRES_PASSWORD: password
+          
+      - image: postgres:latest
+        environment:
+          POSTGRES_DB: dev
+          POSTGRES_USER: root
+          POSTGRES_PASSWORD: password
           
           
     steps:
@@ -27,13 +33,13 @@ jobs:
       - run:
           name: Build
           command: |
-             /liquibase/liquibase checks run
-             /liquibase/liquibase status --verbose
-             /liquibase/liquibase updateSQL
-             /liquibase/liquibase update
-             /liquibase/liquibase rollbackOneUpdate
-             /liquibase/liquibase update
-             /liquibase/liquibase history
+             /liquibase/liquibase --url=jdbc:postgresql://localhost:5432/dev checks run
+             /liquibase/liquibase --url=jdbc:postgresql://localhost:5432/dev status --verbose
+             /liquibase/liquibase --url=jdbc:postgresql://localhost:5432/dev updateSQL
+             /liquibase/liquibase --url=jdbc:postgresql://localhost:5432/dev update
+             /liquibase/liquibase --url=jdbc:postgresql://localhost:5432/dev rollbackOneUpdate
+             /liquibase/liquibase --url=jdbc:postgresql://localhost:5432/dev update
+             /liquibase/liquibase --url=jdbc:postgresql://localhost:5432/dev history
              /liquibase/liquibase update
            
       # Then run your tests!
