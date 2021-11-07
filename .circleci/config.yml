@@ -19,12 +19,6 @@ jobs:
           POSTGRES_USER: root
           POSTGRES_PASSWORD: password
           
-      - image: postgres:latest
-        environment:
-          POSTGRES_DB: dev
-          POSTGRES_USER: root
-          POSTGRES_PASSWORD: password
-          
           
     steps:
       # Checkout the code as the first step.
@@ -33,19 +27,23 @@ jobs:
       - run:
           name: Build
           command: |
-             /liquibase/liquibase --url=jdbc:postgresql://localhost:5432/dev checks run
-             /liquibase/liquibase --url=jdbc:postgresql://localhost:5432/dev status --verbose
-             /liquibase/liquibase --url=jdbc:postgresql://localhost:5432/dev updateSQL
-             /liquibase/liquibase --url=jdbc:postgresql://localhost:5432/dev update
-             /liquibase/liquibase --url=jdbc:postgresql://localhost:5432/dev rollbackOneUpdate
-             /liquibase/liquibase --url=jdbc:postgresql://localhost:5432/dev update
-             /liquibase/liquibase --url=jdbc:postgresql://localhost:5432/dev history
+             /liquibase/liquibase executeSql --sql="create schema dev"
+             export LIQUIBASE_DEFAULT_SCHEMA_NAME="dev"
+             /liquibase/liquibase checks run
+             /liquibase/liquibase status --verbose
+             /liquibase/liquibase updateSQL
              /liquibase/liquibase update
+             /liquibase/liquibase rollbackOneUpdate
+             /liquibase/liquibase update
+             /liquibase/liquibase history
+             echo "Building the application"
            
       # Then run your tests!
       - run:
           name: Test
           command: |
+             /liquibase/liquibase executeSql --sql="create schema test"
+             export LIQUIBASE_DEFAULT_SCHEMA_NAME="test"
              /liquibase/liquibase checks run
              /liquibase/liquibase status --verbose
              /liquibase/liquibase updateSQL
