@@ -40,7 +40,7 @@ jobs:
              /liquibase/liquibase rollbackOneUpdate
              /liquibase/liquibase update
              /liquibase/liquibase history
-            /liquibase/liquibase update
+             /liquibase/liquibase update
            
       # Then run your tests!
       - run:
