@@ -14,9 +14,17 @@ jobs:
 # Service container image available at `host: localhost`
       - image: postgres:latest
         environment:
-          POSTGRES_USER: root
+          POSTGRES_DB: dev
+          POSTGRES_USER: $LIQUIBASE_COMMAND_USERNAME
+          POSTGRES_PASSWORD: $LIQUIBASE_COMMAND_PASSWORD
+          LIQUIBASE_COMMAND_URL: jdbc:postgresql://localhost:5432/dev
+      
+      - image: postgres:latest
+        environment:
           POSTGRES_DB: test
-          POSTGRES_PASSWORD: password
+          POSTGRES_USER: $LIQUIBASE_COMMAND_USERNAME
+          POSTGRES_PASSWORD: $LIQUIBASE_COMMAND_PASSWORD
+          
           
     steps:
       # Checkout the code as the first step.
@@ -25,9 +33,15 @@ jobs:
       - run:
           name: Build
           command: |
-            /liquibase/liquibase --help
-            /liquibase/liquibase --version
-            /liquibase/liquibase validate
+             /liquibase/liquibase checks run
+             /liquibase/liquibase status --verbose
+             /liquibase/liquibase updateSQL
+             /liquibase/liquibase update
+             /liquibase/liquibase rollbackOneUpdate
+             /liquibase/liquibase update
+             /liquibase/liquibase history
+            /liquibase/liquibase update
+           
       # Then run your tests!
       - run:
           name: Test
@@ -35,6 +49,8 @@ jobs:
              /liquibase/liquibase checks run
              /liquibase/liquibase status --verbose
              /liquibase/liquibase updateSQL
+             /liquibase/liquibase update
+             /liquibase/liquibase rollbackOneUpdate
              /liquibase/liquibase update
              /liquibase/liquibase history
 workflows:
