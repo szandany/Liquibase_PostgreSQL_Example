@@ -32,7 +32,7 @@ jobs:
              /liquibase/liquibase --default-schema-name=dev status --verbose
              /liquibase/liquibase --default-schema-name=dev updateSQL
              /liquibase/liquibase --default-schema-name=dev update
-             /liquibase/liquibase --default-schema-name=dev rollbackOneUpdate
+             /liquibase/liquibase --default-schema-name=dev rollbackOneUpdate --force
              /liquibase/liquibase --default-schema-name=dev update
              /liquibase/liquibase --default-schema-name=dev history
              echo "Building the application"
@@ -46,7 +46,7 @@ jobs:
              /liquibase/liquibase --default-schema-name=test status --verbose
              /liquibase/liquibase --default-schema-name=test updateSQL
              /liquibase/liquibase --default-schema-name=test update
-             /liquibase/liquibase --default-schema-name=test rollbackOneUpdate
+             /liquibase/liquibase --default-schema-name=test rollbackOneUpdate --force
              /liquibase/liquibase --default-schema-name=test update
              /liquibase/liquibase --default-schema-name=test history
 workflows:
