@@ -16,8 +16,8 @@ jobs:
       - image: postgres:latest
         environment:
           POSTGRES_DB: test
-          POSTGRES_USER: root
-          POSTGRES_PASSWORD: password
+          POSTGRES_USER: $LIQUIBASE_COMMAND_USERNAME
+          POSTGRES_PASSWORD: $LIQUIBASE_COMMAND_PASSWORD
           
           
     steps:
