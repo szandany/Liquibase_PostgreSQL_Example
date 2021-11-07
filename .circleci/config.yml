@@ -24,15 +24,19 @@ jobs:
       # Use run Liquibase command
       - run:
           name: Build
-          command: /liquibase/liquibase --help
+          command: |
+            /liquibase/liquibase --help
+            /liquibase/liquibase --version
+            /liquibase/liquibase validate
       # Then run your tests!
       - run:
           name: Test
           command: |
-             /liquibase/liquibase --version
-             /liquibase/liquibase --url=jdbc:postgresql://localhost:5432/test --username=root --password=password --changeLogFile=./changelog.sql status --verbose
-             /liquibase/liquibase --url=jdbc:postgresql://localhost:5432/test --username=root --password=password --changeLogFile=./changelog.sql update
-             /liquibase/liquibase --url=jdbc:postgresql://localhost:5432/test --username=root --password=password --changeLogFile=./changelog.sql history
+             /liquibase/liquibase checks run
+             /liquibase/liquibase status --verbose
+             /liquibase/liquibase updateSQL
+             /liquibase/liquibase update
+             /liquibase/liquibase history
 workflows:
   # Below is the definition of your workflow.
   # Inside the workflow, you provide the jobs you want to run, e.g this workflow runs the build-and-test job above.
