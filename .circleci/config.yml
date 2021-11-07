@@ -12,14 +12,14 @@ jobs:
     docker:
       - image: liquibase/liquibase:4.5.0
 # Service container image available at `host: localhost`
-      - image: postgres:latest
+      - image: postgres:13
         environment:
           POSTGRES_DB: dev
           POSTGRES_USER: $LIQUIBASE_COMMAND_USERNAME
           POSTGRES_PASSWORD: $LIQUIBASE_COMMAND_PASSWORD
           LIQUIBASE_COMMAND_URL: jdbc:postgresql://localhost:5432/dev
       
-      - image: postgres:latest
+      - image: postgres:14
         environment:
           POSTGRES_DB: test
           POSTGRES_USER: $LIQUIBASE_COMMAND_USERNAME
