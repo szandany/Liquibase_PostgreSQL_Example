@@ -28,14 +28,13 @@ jobs:
           name: Build
           command: |
              /liquibase/liquibase executeSql --sql="create schema dev"
-             export LIQUIBASE_DEFAULT_SCHEMA_NAME="dev"
              /liquibase/liquibase checks run
-             /liquibase/liquibase status --verbose
-             /liquibase/liquibase updateSQL
-             /liquibase/liquibase update
-             /liquibase/liquibase rollbackOneUpdate
-             /liquibase/liquibase update
-             /liquibase/liquibase history
+             /liquibase/liquibase --default-schema-name=dev status --verbose
+             /liquibase/liquibase --default-schema-name=dev updateSQL
+             /liquibase/liquibase --default-schema-name=dev update
+             /liquibase/liquibase --default-schema-name=dev rollbackOneUpdate
+             /liquibase/liquibase --default-schema-name=dev update
+             /liquibase/liquibase --default-schema-name=dev history
              echo "Building the application"
            
       # Then run your tests!
@@ -43,14 +42,13 @@ jobs:
           name: Test
           command: |
              /liquibase/liquibase executeSql --sql="create schema test"
-             export LIQUIBASE_DEFAULT_SCHEMA_NAME="test"
              /liquibase/liquibase checks run
-             /liquibase/liquibase status --verbose
-             /liquibase/liquibase updateSQL
-             /liquibase/liquibase update
-             /liquibase/liquibase rollbackOneUpdate
-             /liquibase/liquibase update
-             /liquibase/liquibase history
+             /liquibase/liquibase --default-schema-name=test status --verbose
+             /liquibase/liquibase --default-schema-name=test updateSQL
+             /liquibase/liquibase --default-schema-name=test update
+             /liquibase/liquibase --default-schema-name=test rollbackOneUpdate
+             /liquibase/liquibase --default-schema-name=test update
+             /liquibase/liquibase --default-schema-name=test history
 workflows:
   # Below is the definition of your workflow.
   # Inside the workflow, you provide the jobs you want to run, e.g this workflow runs the build-and-test job above.
