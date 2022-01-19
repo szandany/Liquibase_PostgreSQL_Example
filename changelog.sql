@@ -27,7 +27,7 @@ CREATE TABLE colors (
 );
 --rollback drop table colors;
  
---changeset BenG:45679-insertcolors
+--changeset BenG:45679-insertcolors context:!abcd
 INSERT INTO colors (bcolor, fcolor)
 VALUES
   ('red', 'red'),
