@@ -54,3 +54,6 @@ VALUES
 --rollback delete from colors where bcolor = 'blue' and fcolor = 'green';
 --rollback delete from colors where bcolor = 'blue' and fcolor = 'blue';
 
+--changeset TsviZ:boolean_test context:DEV,TEST
+CREATE TABLE test_bool (a BIT(1), b BIT VARYING(5));
+--rollback drop table test_bool;
